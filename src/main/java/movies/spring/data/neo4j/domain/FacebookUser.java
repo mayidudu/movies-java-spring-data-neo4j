@@ -48,6 +48,10 @@ public class FacebookUser {
         return uid;
     }
 
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
+
     public List<FacebookUser> getFriends() {
         return friends;
     }

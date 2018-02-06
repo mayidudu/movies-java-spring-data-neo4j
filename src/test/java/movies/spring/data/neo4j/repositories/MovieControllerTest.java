@@ -56,7 +56,7 @@ public class MovieControllerTest {
         Map<String, Object> res = movieController.graph(100);
         System.out.println(res);
 
-        session.purgeDatabase();
+        //session.purgeDatabase();
     }
 
 }

@@ -18,7 +18,7 @@ public class FacebookUserController {
         this.facebookService = facebookService;
     }
 
-    @RequestMapping("/graph")
+    @RequestMapping("/fbgraph")
     public Map<String, Object> graph(@RequestParam(value = "limit",required = false) Integer limit) {
         return facebookService.graph(limit == null ? 100 : limit);
     }
