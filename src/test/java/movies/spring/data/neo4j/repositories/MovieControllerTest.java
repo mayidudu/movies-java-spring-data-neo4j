@@ -39,16 +39,11 @@ public class MovieControllerTest {
         Movie matrix = new Movie("The Matrix", 1999);
         instance.save(matrix);
 
-
-
         Person keanu = new Person("Keanu Reeves");
         personRepository.save(keanu);
 
-
         Role neo = new Role(matrix, keanu);
         neo.addRoleName("Neo");
-
-
 
         matrix.addRole(neo);
         instance.save(matrix);
