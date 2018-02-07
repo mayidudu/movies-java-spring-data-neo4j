@@ -22,7 +22,17 @@ public class FacebookUser {
 
     private String screen_name;
 
+    private Long uid;
+
     private String pathname;
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
 
     @Relationship(type = "IS_FRIEND_OF",direction = Relationship.UNDIRECTED)
     private Set<FacebookUser> friends;
@@ -48,9 +58,6 @@ public class FacebookUser {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public void addFriends(FacebookUser friend) {
         if (friends == null)

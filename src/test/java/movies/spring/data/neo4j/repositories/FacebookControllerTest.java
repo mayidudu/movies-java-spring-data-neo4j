@@ -36,11 +36,13 @@ public class FacebookControllerTest {
         FacebookUser facebookUser = new FacebookUser();
         facebookUser.setPathname("pathname");
         facebookUser.setScreen_name("screen_name");
+        facebookUser.setUid(1000l);
         facebookUserRepository.save(facebookUser);
 
         FacebookUser facebookUser2 = new FacebookUser();
         facebookUser2.setPathname("pathname2");
         facebookUser2.setScreen_name("screen_name2");
+        facebookUser2.setUid(2000l);
         facebookUserRepository.save(facebookUser2);
 
         facebookUser.addFriends(facebookUser2);

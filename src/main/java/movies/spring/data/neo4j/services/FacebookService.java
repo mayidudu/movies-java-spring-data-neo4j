@@ -26,12 +26,12 @@ public class FacebookService {
         while (result.hasNext()) {
             FacebookUser start = result.next();
             if (get_node_index(nodes, start) == -1) {
-                nodes.add(map("title", start.getScreen_name(), "label", "facebookuser"));
+                nodes.add(map("title", start.getScreen_name(), "uid", start.getUid()));
                 int target = i;
                 i++;
 
                 for (FacebookUser user : start.getFriends()) {
-                    Map<String, Object> friend = map("title", user.getScreen_name(), "label", "facebookuser");
+                    Map<String, Object> friend = map("title", user.getScreen_name(), "uid", user.getUid());
                     int source = get_node_index(nodes, user);
                     if (source == -1) {
                         nodes.add(friend);
@@ -48,7 +48,8 @@ public class FacebookService {
 
         for(int i=0; i<nodes.size(); i++)
         {
-            if(node.getScreen_name().equals(nodes.get(i).get("title").toString()))
+            //if(node.getScreen_name().equals(nodes.get(i).get("title").toString()))
+            if(node.getUid() == nodes.get(i).get("uid"))
                 return i;
         }
         return  -1;
