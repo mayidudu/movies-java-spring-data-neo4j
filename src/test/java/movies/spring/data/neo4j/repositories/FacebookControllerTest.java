@@ -45,12 +45,21 @@ public class FacebookControllerTest {
         facebookUser2.setUid(2000l);
         facebookUserRepository.save(facebookUser2);
 
+        FacebookUser facebookUser3 = new FacebookUser();
+        facebookUser3.setPathname("pathname3");
+        facebookUser3.setScreen_name("screen_name3");
+        facebookUser3.setUid(3000l);
+        facebookUserRepository.save(facebookUser3);
+
         facebookUser.addFriends(facebookUser2);
         facebookUser2.addFriends(facebookUser);
+        facebookUser2.addFriends(facebookUser3);
+        facebookUser3.addFriends(facebookUser2);
         facebookUserRepository.save(facebookUser);
         facebookUserRepository.save(facebookUser2);
+        facebookUserRepository.save(facebookUser3);
 
-         Map<String, Object> res =  facebookUserController.graph(100);
+        Map<String, Object> res =  facebookUserController.graph(100);
         System.out.println(res);
     }
 }
