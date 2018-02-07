@@ -62,7 +62,15 @@ public class FacebookUser {
     public void addFriends(FacebookUser friend) {
         if (friends == null)
             friends = new HashSet<FacebookUser>();
-        friends.add(friend);
+        boolean existed=false;
+        for(FacebookUser item:friends){
+            if (item.getUid() == friend.getUid()) {
+                existed = true;
+                break;
+            }
+        }
+        if(!existed)
+            friends.add(friend);
     }
 
     public Set<FacebookUser> getFriends() {
