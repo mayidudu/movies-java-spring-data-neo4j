@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.neo4j.examples</groupId>
-    <artifactId>sdn4-movies</artifactId>
+    <groupId>com.jn.rb.data</groupId>
+    <artifactId>crawler-process</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>SDN4 University</name>
+    <name>data-process</name>
     <description>Demo web project for Spring Boot using Spring Data Neo4j</description>
 
     <parent>
