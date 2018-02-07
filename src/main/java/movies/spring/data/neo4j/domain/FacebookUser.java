@@ -20,7 +20,7 @@ public class FacebookUser {
     @GraphId
     private Long id;
 
-    private String screen_name;
+    private String screenname;
 
     private Long uid;
 
@@ -38,14 +38,6 @@ public class FacebookUser {
     private Set<FacebookUser> friends;
 
 
-    public String getScreen_name() {
-        return screen_name;
-    }
-
-    public void setScreen_name(String screen_name) {
-        this.screen_name = screen_name;
-    }
-
     public String getPathname() {
         return pathname;
     }
@@ -58,6 +50,13 @@ public class FacebookUser {
         return id;
     }
 
+    public String getScreenname() {
+        return screenname;
+    }
+
+    public void setScreenname(String screenname) {
+        this.screenname = screenname;
+    }
 
     public void addFriends(FacebookUser friend) {
         if (friends == null)

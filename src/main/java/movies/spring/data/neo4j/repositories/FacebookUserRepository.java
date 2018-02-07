@@ -13,15 +13,17 @@ import java.util.Collection;
  * Created by marvin on 2018/2/6.
  */
 
-@RepositoryRestResource(collectionResourceRel = "friends", path = "friends")
+//@RepositoryRestResource(collectionResourceRel = "friends", path = "friends")
+@Repository
 public interface FacebookUserRepository extends PagingAndSortingRepository<FacebookUser,Long> {
+
     @Query("MATCH (s:FacebookUser)<-[r:IS_FRIEND_OF]-(e:FacebookUser) RETURN s,r,e LIMIT {limit}")
     Collection<FacebookUser> graph(@Param("limit") int limit);
 
     FacebookUser findByUid(@Param("uid") Long uid);
 
-    Collection<FacebookUser> findByScreen_NameLike(@Param("screen_name") String screen_name);
+    Collection<FacebookUser> findByScreennameLike(@Param("screenname") String screenname);
 
-    Collection<FacebookUser> findByPathNameLike(@Param("pathname") String pathname);
+    Collection<FacebookUser> findByPathnameLike(@Param("pathname") String pathname);
 
 }

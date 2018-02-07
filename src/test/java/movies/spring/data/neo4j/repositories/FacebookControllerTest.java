@@ -3,6 +3,9 @@ package movies.spring.data.neo4j.repositories;
 import movies.spring.data.neo4j.controller.FacebookUserController;
 import movies.spring.data.neo4j.domain.FacebookUser;
 import movies.spring.data.neo4j.domain.FriendRole;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.ogm.session.Session;
@@ -29,25 +32,23 @@ public class FacebookControllerTest {
     @Autowired
     private FacebookUserController facebookUserController;
 
-    @Test
-    public void testFacebookUser(){
-        session.purgeDatabase();
-
+    @Before
+    public void setUp() {
         FacebookUser facebookUser = new FacebookUser();
         facebookUser.setPathname("pathname");
-        facebookUser.setScreen_name("screen_name");
+        facebookUser.setScreenname("screen_name");
         facebookUser.setUid(1000l);
         facebookUserRepository.save(facebookUser);
 
         FacebookUser facebookUser2 = new FacebookUser();
         facebookUser2.setPathname("pathname2");
-        facebookUser2.setScreen_name("screen_name2");
+        facebookUser2.setScreenname("screen_name2");
         facebookUser2.setUid(2000l);
         facebookUserRepository.save(facebookUser2);
 
         FacebookUser facebookUser3 = new FacebookUser();
         facebookUser3.setPathname("pathname3");
-        facebookUser3.setScreen_name("screen_name3");
+        facebookUser3.setScreenname("screen_name3");
         facebookUser3.setUid(3000l);
         facebookUserRepository.save(facebookUser3);
 
@@ -59,7 +60,26 @@ public class FacebookControllerTest {
         facebookUserRepository.save(facebookUser2);
         facebookUserRepository.save(facebookUser3);
 
+    }
+
+    @After
+    public void tearDown() {
+        //session.purgeDatabase();
+
+    }
+
+
+    @Test
+    public void testFacebookUser(){
         Map<String, Object> res =  facebookUserController.graph(100);
         System.out.println(res);
+    }
+
+
+    @Test
+    public void testFacebookUserRepository(){
+        FacebookUser facebookUser2 = facebookUserRepository.findByUid(1000l);
+        Assert.assertTrue(facebookUser2 != null);
+        System.out.println(facebookUser2.getScreenname());
     }
 }

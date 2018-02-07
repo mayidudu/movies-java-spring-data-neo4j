@@ -26,12 +26,12 @@ public class FacebookService {
         while (result.hasNext()) {
             FacebookUser start = result.next();
             if (get_node_index(nodes, start) == -1) {
-                nodes.add(map("title", start.getScreen_name(), "uid", start.getUid()));
+                nodes.add(map("title", start.getScreenname(), "uid", start.getUid()));
                 int target = i;
                 i++;
 
                 for (FacebookUser user : start.getFriends()) {
-                    Map<String, Object> friend = map("title", user.getScreen_name(), "uid", user.getUid());
+                    Map<String, Object> friend = map("title", user.getScreenname(), "uid", user.getUid());
                     int source = get_node_index(nodes, user);
                     if (source == -1) {
                         nodes.add(friend);
