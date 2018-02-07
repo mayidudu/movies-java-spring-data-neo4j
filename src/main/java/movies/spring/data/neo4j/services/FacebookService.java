@@ -23,24 +23,38 @@ public class FacebookService {
         List<Map<String, Object>> rels = new ArrayList<>();
         int i = 0;
         Iterator<FacebookUser> result = friends.iterator();
-        while(result.hasNext()){
-            FacebookUser start=result.next();
-            nodes.add(map("title",start.getScreen_name(),"label","facebookuser"));
-            int target=i;
-            i++;
-            for(FacebookUser user:start.getFriends()){
-                Map<String,Object> friend = map("title",user.getScreen_name(),"label","facebookuser");
-                int source = nodes.indexOf(friend);
-                if(source == -1){
-                    nodes.add(friend);
-                    source=i++;
+        while (result.hasNext()) {
+            FacebookUser start = result.next();
+            if (get_node_index(nodes, start) == -1) {
+                nodes.add(map("title", start.getScreen_name(), "label", "facebookuser"));
+                int target = i;
+                i++;
+
+                for (FacebookUser user : start.getFriends()) {
+                    Map<String, Object> friend = map("title", user.getScreen_name(), "label", "facebookuser");
+                    int source = get_node_index(nodes, user);
+                    if (source == -1) {
+                        nodes.add(friend);
+                        source = i++;
+                    }
+                    rels.add(map("source", source, "target", target));
                 }
-                rels.add(map("source",source,"target",target));
             }
         }
 
         return map("nodes", nodes, "links", rels);
     }
+    private int get_node_index(List<Map<String,Object>> nodes, FacebookUser node){
+
+        for(int i=0; i<nodes.size(); i++)
+        {
+            if(node.getScreen_name().equals(nodes.get(i).get("title").toString()))
+                return i;
+        }
+        return  -1;
+    }
+
+
 
     private Map<String, Object> map(String key1, Object value1, String key2, Object value2) {
         Map<String, Object> result = new HashMap<String, Object>(2);
@@ -48,6 +62,7 @@ public class FacebookService {
         result.put(key2, value2);
         return result;
     }
+
     @Transactional(readOnly = true)
     public Map<String, Object> graph(int limit) {
         Collection<FacebookUser> result = facebookUserRepository.graph(limit);
