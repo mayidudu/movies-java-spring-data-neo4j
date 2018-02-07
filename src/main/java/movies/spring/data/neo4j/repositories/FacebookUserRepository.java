@@ -17,4 +17,11 @@ import java.util.Collection;
 public interface FacebookUserRepository extends PagingAndSortingRepository<FacebookUser,Long> {
     @Query("MATCH (s:FacebookUser)<-[r:IS_FRIEND_OF]-(e:FacebookUser) RETURN s,r,e LIMIT {limit}")
     Collection<FacebookUser> graph(@Param("limit") int limit);
+
+    FacebookUser findByUid(@Param("uid") Long uid);
+
+    Collection<FacebookUser> findByScreen_NameLike(@Param("screen_name") String screen_name);
+
+    Collection<FacebookUser> findByPathNameLike(@Param("pathname") String pathname);
+
 }
