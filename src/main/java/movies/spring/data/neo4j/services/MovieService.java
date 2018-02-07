@@ -47,6 +47,8 @@ public class MovieService {
 	@Transactional(readOnly = true)
 	public Map<String, Object>  graph(int limit) {
 		Collection<Movie> result = movieRepository.graph(limit);
+		System.out.println("==movie-graph===");
+		System.out.println(result);
 		return toD3Format(result);
 	}
 }

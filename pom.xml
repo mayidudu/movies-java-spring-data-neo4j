@@ -67,6 +67,11 @@
             <version>3.1.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-cypher-compiler-3.1</artifactId>
+            <version>RELEASE</version>
+        </dependency>
 
     </dependencies>
 

@@ -22,35 +22,18 @@ public class FacebookService {
         List<Map<String, Object>> nodes = new ArrayList<>();
         List<Map<String, Object>> rels = new ArrayList<>();
         int i = 0;
-        /*
-        Iterator<Movie> result = movies.iterator();
-        while (result.hasNext()) {
-            Movie movie = result.next();
-            nodes.add(map("title", movie.getTitle(), "label", "movie"));
-            int target = i;
-            i++;
-            for (Role role : movie.getRoles()) {
-                Map<String, Object> actor = map("title", role.getPerson().getName(), "label", "actor");
-                int source = nodes.indexOf(actor);
-                if (source == -1) {
-                    nodes.add(actor);
-                    source = i++;
-                }
-                rels.add(map("source", source, "target", target));
-            }
-        }*/
         Iterator<FacebookUser> result = friends.iterator();
         while(result.hasNext()){
             FacebookUser start=result.next();
             nodes.add(map("title",start.getScreen_name(),"label","facebookuser"));
             int target=i;
             i++;
-            for(FriendRole role:start.getRoles()){
-                Map<String,Object> friend = map("title",role.getEnd().getScreen_name(),"label","friend");
-                int source=nodes.indexOf(friend);
+            for(FacebookUser user:start.getFriends()){
+                Map<String,Object> friend = map("title",user.getScreen_name(),"label","facebookuser");
+                int source = nodes.indexOf(friend);
                 if(source == -1){
                     nodes.add(friend);
-                    source = i++;
+                    source=i++;
                 }
                 rels.add(map("source",source,"target",target));
             }
@@ -68,6 +51,8 @@ public class FacebookService {
     @Transactional(readOnly = true)
     public Map<String, Object> graph(int limit) {
         Collection<FacebookUser> result = facebookUserRepository.graph(limit);
+        System.out.println("======graph=====");
+        System.out.println(result);
         return toD3Format(result);
     }
 }

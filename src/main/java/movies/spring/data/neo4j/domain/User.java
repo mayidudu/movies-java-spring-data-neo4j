@@ -5,28 +5,40 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.cypher.query.SortOrder;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Created by marvin on 2018/2/6.
  */
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-@NodeEntity
-public class FacebookUser {
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="uid")
+@NodeEntity          // #1 This class is backed by a Neo4j Node
+public class User {
     @GraphId
-    private Long id;
+    private Long uid;
 
     private String screen_name;
 
     private String pathname;
 
     @Relationship(type = "IS_FRIEND_OF",direction = Relationship.UNDIRECTED)
-    private Set<FacebookUser> friends;
+    private Set<User> friends;
 
+    public void addFriends(User friend) {
+        if (friends == null)
+            friends = new HashSet<User>();
+        friends.add(friend);
+    }
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
 
     public String getScreen_name() {
         return screen_name;
@@ -44,25 +56,11 @@ public class FacebookUser {
         this.pathname = pathname;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void addFriends(FacebookUser friend) {
-        if (friends == null)
-            friends = new HashSet<FacebookUser>();
-        friends.add(friend);
-    }
-
-    public Set<FacebookUser> getFriends() {
+    public Set<User> getFriends() {
         return friends;
     }
 
-    public void setFriends(Set<FacebookUser> friends) {
+    public void setFriends(Set<User> friends) {
         this.friends = friends;
     }
 }
