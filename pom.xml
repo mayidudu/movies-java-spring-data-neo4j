@@ -72,7 +72,11 @@
             <artifactId>neo4j-cypher-compiler-3.1</artifactId>
             <version>RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.45</version>
+        </dependency>
     </dependencies>
 
     <build>
