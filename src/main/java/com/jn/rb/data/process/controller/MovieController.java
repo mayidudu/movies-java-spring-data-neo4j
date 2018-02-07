@@ -1,0 +1,28 @@
+package com.jn.rb.data.process.controller;
+
+import java.util.Map;
+
+import com.jn.rb.data.process.services.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author Mark Angrish
+ */
+@RestController("/movie")
+public class MovieController {
+
+	final MovieService movieService;
+
+	@Autowired
+	public MovieController(MovieService movieService) {
+		this.movieService = movieService;
+	}
+
+	@RequestMapping("/graph")
+	public Map<String, Object> graph(@RequestParam(value = "limit",required = false) Integer limit) {
+		return movieService.graph(limit == null ? 100 : limit);
+	}
+}
